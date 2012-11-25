@@ -32,3 +32,6 @@ tmp
 .yardoc
 _yardoc
 doc/
+
+nbproject/*
+.idea
