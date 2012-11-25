@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Order number:</b>
+  <%= @sales_order.order_number %>
+</p>
+
+<p>
+  <b>Completely delivered:</b>
+  <%= @sales_order.completely_delivered %>
+</p>
+
+<p>
+  <b>Completely invoiced:</b>
+  <%= @sales_order.completely_invoiced %>
+</p>
+
+
+<%= link_to 'Edit', edit_sales_order_path(@sales_order) %> |
+<%= link_to 'Back', sales_orders_path %>
