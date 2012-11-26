@@ -23,6 +23,13 @@
     <%= f.label :completely_invoiced %><br />
     <%= f.check_box :completely_invoiced %>
   </div>
+  <div class="sales_order_rows">
+    <h2>Add a Salesorder row</h2>
+    <%= link_to_add_sales_order_row "Add salesorder row", f, :sales_order_rows %>
+    <%= f.fields_for :sales_order_rows do |builder| %>
+        <%= render "sales_order_row_fields", :f => builder %>
+    <% end %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

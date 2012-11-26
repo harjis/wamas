@@ -15,6 +15,8 @@
   <%= @sales_order.completely_invoiced %>
 </p>
 
+<h2>Salesorder rows</h2>
+<%= render @sales_order.sales_order_rows %>
 
 <%= link_to 'Edit', edit_sales_order_path(@sales_order) %> |
 <%= link_to 'Back', sales_orders_path %>

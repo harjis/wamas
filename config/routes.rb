@@ -1,8 +1,7 @@
 Wamas::Application.routes.draw do
-  resources :sales_order_rows
-
-
-  resources :sales_orders
+  resources :sales_orders do
+    resources :sales_order_rows
+  end
 
 
   resources :products

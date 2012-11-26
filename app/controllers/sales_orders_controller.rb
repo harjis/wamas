@@ -26,6 +26,8 @@ class SalesOrdersController < ApplicationController
   def new
     @sales_order = SalesOrder.new
 
+    sales_order_row = @sales_order.sales_order_rows.build
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @sales_order }
