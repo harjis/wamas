@@ -1,4 +1,6 @@
 class SalesOrdersController < ApplicationController
+  autocomplete :product, :name
+
   # GET /sales_orders
   # GET /sales_orders.json
   def index
