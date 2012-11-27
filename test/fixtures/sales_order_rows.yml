@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  row_number: 1
+  order_quantity: 1
+  unit_price: 1.5
+  discount_percent: 1.5
+  discount_amount: 1.5
+  line_amount: 1.5
+  unit_cost: 1.5
+  sales_order: 
+
+two:
+  name: MyString
+  row_number: 1
+  order_quantity: 1
+  unit_price: 1.5
+  discount_percent: 1.5
+  discount_amount: 1.5
+  line_amount: 1.5
+  unit_cost: 1.5
+  sales_order: 

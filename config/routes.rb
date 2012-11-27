@@ -1,6 +1,11 @@
 Wamas::Application.routes.draw do
-  resources :products
+  resources :sales_orders do
+    resources :sales_order_rows
+  end
 
+
+  resources :products
+  resources :sales_order
 
   get "home/index"
 
