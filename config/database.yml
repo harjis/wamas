@@ -15,7 +15,7 @@ development:
   database: wamas
   pool: 5
   username: root
-  password: s1bul111
+  password: root
   socket: /tmp/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -27,7 +27,7 @@ test:
   database: wamas-test
   pool: 5
   username: root
-  password: s1bul111
+  password: root
   socket: /tmp/mysql.sock
 
 production:
@@ -36,5 +36,5 @@ production:
   database: wamas-production
   pool: 5
   username: root
-  password: s1bul111
+  password: root
   socket: /tmp/mysql.sock
