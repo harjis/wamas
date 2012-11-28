@@ -1,5 +1,5 @@
 class SalesOrdersController < ApplicationController
-  autocomplete :product, :name
+  autocomplete :product, :name, :full => true
 
   # GET /sales_orders
   # GET /sales_orders.json
