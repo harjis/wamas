@@ -1,10 +1,9 @@
-<div class="sales_order_row">
-  <%= f.autocomplete_field :name, autocomplete_product_name_sales_orders_path %>
-  <%= f.text_field :order_quantity%>
-  <%= f.text_field :unit_price%>
-  <%= f.text_field :discount_percent%>
-  <%= link_to_remove_sales_order_row "remove", f %>
-  <br/>
-  <br/>
-</div>
+<tr class="sales_order_row">
+  <td><%= f.hidden_field :product_id, :id => 'real_product_id' %></td>
+  <td><%= f.autocomplete_field :name, autocomplete_product_name_sales_orders_path, :id_element => '#real_product_id' %></td>
+  <td><%= f.text_field :order_quantity %></td>
+  <td><%= f.text_field :unit_price %></td>
+  <td><%= f.text_field :discount_percent %></td>
+  <td><%= link_to_remove_sales_order_row "remove", f %></td>
+</tr>
 

@@ -1,36 +1,52 @@
 <%= form_for(@sales_order) do |f| %>
-  <% if @sales_order.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sales_order.errors.count, "error") %> prohibited this sales_order from being saved:</h2>
+    <% if @sales_order.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@sales_order.errors.count, "error") %> prohibited this sales_order from being saved:</h2>
 
-      <ul>
-      <% @sales_order.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :order_number %><br />
-    <%= f.number_field :order_number %>
-  </div>
-  <div class="field">
-    <%= f.label :completely_delivered %><br />
-    <%= f.check_box :completely_delivered %>
-  </div>
-  <div class="field">
-    <%= f.label :completely_invoiced %><br />
-    <%= f.check_box :completely_invoiced %>
-  </div>
-  <div class="sales_order_rows">
-    <h2>Add a Salesorder row</h2>
-    <%= link_to_add_sales_order_row "Add salesorder row", f, :sales_order_rows %>
-    <%= f.fields_for :sales_order_rows do |builder| %>
-        <%= render "sales_order_row_fields", :f => builder %>
+          <ul>
+            <% @sales_order.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
     <% end %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+    <div class="field">
+      <%= f.label :order_number %>
+      <br/>
+      <%= f.number_field :order_number %>
+    </div>
+    <div class="field">
+      <%= f.label :completely_delivered %>
+      <br/>
+      <%= f.check_box :completely_delivered %>
+    </div>
+    <div class="field">
+      <%= f.label :completely_invoiced %>
+      <br/>
+      <%= f.check_box :completely_invoiced %>
+    </div>
+    <div class="sales_order_rows">
+      <h2>Add a Salesorder row</h2>
+      <%= link_to_add_sales_order_row "Add salesorder row", f, :sales_order_rows %>
+      <table id="sales_order_rows_table">
+        <thead>
+        <th></th>
+        <th>Name</th>
+        <th>Order quantity</th>
+        <th>Sale price</th>
+        <th>Discount percent</th>
+        </thead>
+        <tbody>
+        <%= f.fields_for :sales_order_rows do |builder| %>
+            <%= render "sales_order_row_fields", :f => builder %>
+        <% end %>
+        </tbody>
+      </table>
+      <br/>
+      <br/>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
 <% end %>
