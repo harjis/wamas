@@ -1,0 +1,29 @@
+<h1>Listing warehouse_spots</h1>
+
+<table>
+  <tr>
+    <th>Warehouse</th>
+    <th>Row</th>
+    <th>Level</th>
+    <th>Position</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @warehouse_spots.each do |warehouse_spot| %>
+  <tr>
+    <td><%= warehouse_spot.warehouse.name %></td>
+    <td><%= warehouse_spot.row %></td>
+    <td><%= warehouse_spot.level %></td>
+    <td><%= warehouse_spot.position %></td>
+    <td><%= link_to 'Show', warehouse_spot %></td>
+    <td><%= link_to 'Edit', edit_warehouse_spot_path(warehouse_spot) %></td>
+    <td><%= link_to 'Destroy', warehouse_spot, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Warehouse spot', new_warehouse_spot_path %>
