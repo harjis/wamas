@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  product: 
+  type: 
+  quantity: 1
+  remaining_quantity: 1
+  unit_cost: 1.5
+
+two:
+  product: 
+  type: 
+  quantity: 1
+  remaining_quantity: 1
+  unit_cost: 1.5
