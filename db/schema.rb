@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121128185216) do
+ActiveRecord::Schema.define(:version => 20130112161837) do
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(:version => 20121128185216) do
     t.datetime "date_modified"
     t.boolean  "deleted"
     t.text     "description"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "warehouseentry_id"
   end
 
   create_table "sales_order_rows", :force => true do |t|
@@ -47,5 +48,17 @@ ActiveRecord::Schema.define(:version => 20121128185216) do
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end
+
+  create_table "warehouse_entries", :force => true do |t|
+    t.integer  "product_id"
+    t.string   "type"
+    t.integer  "quantity"
+    t.integer  "remaining_quantity"
+    t.float    "unit_cost"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "warehouse_entries", ["product_id"], :name => "index_warehouse_entries_on_product_id"
 
 end
