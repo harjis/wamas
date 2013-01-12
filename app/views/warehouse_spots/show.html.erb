@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Warehouse:</b>
+  <%= @warehouse_spot.warehouse %>
+</p>
+
+<p>
+  <b>Row:</b>
+  <%= @warehouse_spot.row %>
+</p>
+
+<p>
+  <b>Level:</b>
+  <%= @warehouse_spot.level %>
+</p>
+
+<p>
+  <b>Position:</b>
+  <%= @warehouse_spot.position %>
+</p>
+
+
+<%= link_to 'Edit', edit_warehouse_spot_path(@warehouse_spot) %> |
+<%= link_to 'Back', warehouse_spots_path %>

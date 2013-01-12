@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130112161837) do
+ActiveRecord::Schema.define(:version => 20130112164953) do
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -19,9 +19,8 @@ ActiveRecord::Schema.define(:version => 20130112161837) do
     t.datetime "date_modified"
     t.boolean  "deleted"
     t.text     "description"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.integer  "warehouseentry_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "sales_order_rows", :force => true do |t|
@@ -60,5 +59,36 @@ ActiveRecord::Schema.define(:version => 20130112161837) do
   end
 
   add_index "warehouse_entries", ["product_id"], :name => "index_warehouse_entries_on_product_id"
+
+  create_table "warehouse_entry_spots", :force => true do |t|
+    t.integer  "warehouse_entry_id"
+    t.integer  "warehouse_spot_id"
+    t.float    "spot_weight"
+    t.integer  "spot_quantity"
+    t.integer  "remaining_spot_quantity"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  add_index "warehouse_entry_spots", ["warehouse_entry_id"], :name => "index_warehouse_entry_spots_on_warehouse_entry_id"
+  add_index "warehouse_entry_spots", ["warehouse_spot_id"], :name => "index_warehouse_entry_spots_on_warehouse_spot_id"
+
+  create_table "warehouse_spots", :force => true do |t|
+    t.integer  "warehouse_id"
+    t.string   "row"
+    t.integer  "level"
+    t.integer  "position"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "warehouse_spots", ["warehouse_id"], :name => "index_warehouse_spots_on_warehouse_id"
+
+  create_table "warehouses", :force => true do |t|
+    t.string   "name"
+    t.boolean  "main_warehouse"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
 end
