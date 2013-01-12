@@ -1,4 +1,11 @@
 Wamas::Application.routes.draw do
+
+  resources :purchase_orders do
+    resources :purchase_order_rows
+    get :autocomplete_product_name, :on => :collection
+  end
+
+
   resources :warehouse_spots
 
 
@@ -11,12 +18,12 @@ Wamas::Application.routes.draw do
   end
 
   resources :products
-  resources :sales_order
 
   get "home/index"
    root :to => 'home#index'
 
   get "sales_orders/autocomplete_product_name"
+  get "purchase_orders/autocomplete_product_name"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
