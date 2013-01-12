@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  warehouse: 
+  row: MyString
+  level: 1
+  position: 1
+
+two:
+  warehouse: 
+  row: MyString
+  level: 1
+  position: 1

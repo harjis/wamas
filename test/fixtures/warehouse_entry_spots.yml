@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  warehouse_entry: 
+  warehouse_spot: 
+  spot_weight: 1.5
+  spot_quantity: 1
+  remaining_spot_quantity: 1
+
+two:
+  warehouse_entry: 
+  warehouse_spot: 
+  spot_weight: 1.5
+  spot_quantity: 1
+  remaining_spot_quantity: 1
