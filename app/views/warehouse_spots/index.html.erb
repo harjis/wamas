@@ -13,7 +13,7 @@
 
 <% @warehouse_spots.each do |warehouse_spot| %>
   <tr>
-    <td><%= warehouse_spot.warehouse %></td>
+    <td><%= warehouse_spot.warehouse.name %></td>
     <td><%= warehouse_spot.row %></td>
     <td><%= warehouse_spot.level %></td>
     <td><%= warehouse_spot.position %></td>

@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :warehouse %><br />
-    <%= f.text_field :warehouse %>
+    <%= collection_select(:warehouse, :warehouse_id, Warehouse.all, :id, :name, {:selected => @warehouse_spot.warehouse_id, :prompt => 'Select a Warehouse'}) %>
   </div>
   <div class="field">
     <%= f.label :row %><br />

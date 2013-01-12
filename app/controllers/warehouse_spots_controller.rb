@@ -42,6 +42,8 @@ class WarehouseSpotsController < ApplicationController
   def create
     @warehouse_spot = WarehouseSpot.new(params[:warehouse_spot])
 
+    @warehouse_spot.warehouse = Warehouse.find(params[:warehouse][:warehouse_id])
+
     respond_to do |format|
       if @warehouse_spot.save
         format.html { redirect_to @warehouse_spot, notice: 'Warehouse spot was successfully created.' }
@@ -57,6 +59,8 @@ class WarehouseSpotsController < ApplicationController
   # PUT /warehouse_spots/1.json
   def update
     @warehouse_spot = WarehouseSpot.find(params[:id])
+
+    @warehouse_spot.warehouse = Warehouse.find(params[:warehouse][:warehouse_id])
 
     respond_to do |format|
       if @warehouse_spot.update_attributes(params[:warehouse_spot])
