@@ -1,0 +1,27 @@
+<h1>Listing sales_orders</h1>
+
+<table>
+  <tr>
+    <th>Order number</th>
+    <th>Completely delivered</th>
+    <th>Completely invoiced</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sales_orders.each do |sales_order| %>
+  <tr>
+    <td><%= sales_order.order_number %></td>
+    <td><%= sales_order.completely_delivered %></td>
+    <td><%= sales_order.completely_invoiced %></td>
+    <td><%= link_to 'Show', sales_order %></td>
+    <td><%= link_to 'Edit', edit_sales_order_path(sales_order) %></td>
+    <td><%= link_to 'Destroy', sales_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Sales order', new_sales_order_path %>

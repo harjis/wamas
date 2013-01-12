@@ -36,3 +36,4 @@ doc/
 nbproject/*
 .idea/
 .idea/*.xml
+/.idea/
