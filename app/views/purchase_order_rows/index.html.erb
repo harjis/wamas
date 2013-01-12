@@ -1,0 +1,33 @@
+<h1>Listing purchase_order_rows</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Row number</th>
+    <th>Order quantity</th>
+    <th>Unit cost</th>
+    <th>Line amount</th>
+    <th>Purchase order</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @purchase_order_rows.each do |purchase_order_row| %>
+  <tr>
+    <td><%= purchase_order_row.name %></td>
+    <td><%= purchase_order_row.row_number %></td>
+    <td><%= purchase_order_row.order_quantity %></td>
+    <td><%= purchase_order_row.unit_cost %></td>
+    <td><%= purchase_order_row.line_amount %></td>
+    <td><%= purchase_order_row.purchase_order %></td>
+    <td><%= link_to 'Show', purchase_order_row %></td>
+    <td><%= link_to 'Edit', edit_purchase_order_row_path(purchase_order_row) %></td>
+    <td><%= link_to 'Destroy', purchase_order_row, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Purchase order row', new_purchase_order_row_path %>

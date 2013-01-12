@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  order_number: 1
+  completely_arrived: false
+  completely_invoiced: false
+
+two:
+  order_number: 1
+  completely_arrived: false
+  completely_invoiced: false
