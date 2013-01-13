@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130112204406) do
+ActiveRecord::Schema.define(:version => 20130112212236) do
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -69,6 +69,31 @@ ActiveRecord::Schema.define(:version => 20130112204406) do
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end
+
+  create_table "supplies", :force => true do |t|
+    t.integer  "purchase_order_id"
+    t.string   "name"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "supplies", ["purchase_order_id"], :name => "index_supplies_on_purchase_order_id"
+
+  create_table "supply_rows", :force => true do |t|
+    t.integer  "supply_id"
+    t.integer  "supply_row_number"
+    t.integer  "supplied_quantity"
+    t.integer  "warehouse_entry_id"
+    t.float    "unit_cost"
+    t.float    "unit_cost_lcy"
+    t.float    "total_amount"
+    t.float    "total_amount_lcy"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "supply_rows", ["supply_id"], :name => "index_supply_rows_on_supply_id"
+  add_index "supply_rows", ["warehouse_entry_id"], :name => "index_supply_rows_on_warehouse_entry_id"
 
   create_table "warehouse_entries", :force => true do |t|
     t.integer  "product_id"

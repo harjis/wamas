@@ -6,8 +6,9 @@ Wamas::Application.routes.draw do
   end
 
 
-  resources :warehouse_spots
-
+  resources :warehouse_spots do
+    get :warehouse_spots_by_warehouse_id
+  end
 
   resources :warehouses
 
@@ -24,6 +25,8 @@ Wamas::Application.routes.draw do
 
   get "sales_orders/autocomplete_product_name"
   get "purchase_orders/autocomplete_product_name"
+
+  get 'warehouse_spots/all_by_warehouse_id/:warehouse_id'  => 'warehouse_spots#all_by_warehouse_id'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
