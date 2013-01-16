@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  shipment: 
+  shipment_row_number: 1
+  shipped_quantity: 1
+  warehouse_entry: 
+  unit_price: 1.5
+  unit_price_lcy: 1.5
+  discount_percent: 1.5
+  discount_amount: 1.5
+  discount_amount_lcy: 1.5
+  total_amount: 1.5
+  total_amount_lcy: 1.5
+  unit_cost: 1.5
+
+two:
+  shipment: 
+  shipment_row_number: 1
+  shipped_quantity: 1
+  warehouse_entry: 
+  unit_price: 1.5
+  unit_price_lcy: 1.5
+  discount_percent: 1.5
+  discount_amount: 1.5
+  discount_amount_lcy: 1.5
+  total_amount: 1.5
+  total_amount_lcy: 1.5
+  unit_cost: 1.5
