@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130112212236) do
+ActiveRecord::Schema.define(:version => 20130116170249) do
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(:version => 20130112212236) do
     t.datetime "updated_at",          :null => false
   end
 
+  create_table "purchase_orders_supplies", :force => true do |t|
+    t.integer  "purchase_order_id"
+    t.integer  "supply_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "purchase_orders_supplies", ["purchase_order_id"], :name => "index_purchase_orders_supplies_on_purchase_order_id"
+  add_index "purchase_orders_supplies", ["supply_id"], :name => "index_purchase_orders_supplies_on_supply_id"
+
   create_table "sales_order_rows", :force => true do |t|
     t.string   "name"
     t.integer  "row_number"
@@ -71,13 +81,10 @@ ActiveRecord::Schema.define(:version => 20130112212236) do
   end
 
   create_table "supplies", :force => true do |t|
-    t.integer  "purchase_order_id"
     t.string   "name"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
-
-  add_index "supplies", ["purchase_order_id"], :name => "index_supplies_on_purchase_order_id"
 
   create_table "supply_rows", :force => true do |t|
     t.integer  "supply_id"

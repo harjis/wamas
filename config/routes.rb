@@ -1,5 +1,8 @@
 Wamas::Application.routes.draw do
 
+  resources :supplies
+
+
   resources :purchase_orders do
     resources :purchase_order_rows
     get :autocomplete_product_name, :on => :collection

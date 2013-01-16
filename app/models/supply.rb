@@ -1,5 +1,4 @@
 class Supply < ActiveRecord::Base
-  belongs_to :purchase_order
-  has_many :supply_rows
+  has_and_belongs_to_many :purchase_orders
   attr_accessible :name
 end

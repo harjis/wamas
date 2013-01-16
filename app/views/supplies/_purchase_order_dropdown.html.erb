@@ -1,0 +1,6 @@
+<div class="purchase_order">
+  <%= hidden_field :purchase_order_id, :id => 'real_purchase_order_id' %>
+  <%= collection_select(:purchase_order, :id, PurchaseOrder.all, :id, :order_number, {:prompt => "Select a Purchase order"}, {:class => 'purchase_orders'}) %>
+  <%= link_to_remove_purchase_order('remove', f) %>
+  <br/>
+</div>

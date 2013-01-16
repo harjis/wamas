@@ -27,11 +27,6 @@
       <br/>
       <%= f.check_box :completely_invoiced %>
     </div>
-    <div class="field">
-      <%= f.label :warehouse %>
-      <br/>
-      <%= collection_select(:warehouse, :warehouse_id, Warehouse.all, :id, :name, {:prompt => "Select a Warehouse"}) %>
-    </div>
     <div class="sales_order_rows">
       <h2>Add a purchase order row</h2>
       <%= link_to_add_purchase_order_row "Add purchase order row", f, :purchase_order_rows %>
@@ -39,7 +34,6 @@
         <thead>
         <th></th>
         <th>Name</th>
-        <th>Warehouse Spot</th>
         <th>Order quantity</th>
         <th>Purchase price</th>
         </thead>
