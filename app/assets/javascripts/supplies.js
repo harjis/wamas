@@ -1,6 +1,46 @@
+(function ($) {
+    var SupplyPlugin = function (element) {
+        var element = $(element);
+        var obj = this;
+
+        this.populateSupplyRows = function () {
+            console.log('populatesupply rows called');
+        };
+    };
+
+    $.fn.supplyplugin = function () {
+        return this.each(function () {
+            var element = $(this);
+
+            if (element.data('supplyplugin')) {
+                return;
+            }
+
+            var supplyplugin = new SupplyPlugin(this);
+
+            element.data('supplyplugin', supplyplugin);
+        });
+    };
+
+})(jQuery);
+
 $(document).ready(function () {
     warehouse_dropdown_change();
+    bind_purchase_order_change();
 });
+
+function bind_purchase_order_change() {
+    $('.purchase_orders').live('change', function () {
+        populate_purchase_order_rows($(this).val());
+    });
+}
+
+function populate_purchase_order_rows(purchase_order_id) {
+    $('#purchase_order_rows_wrapper').supplyplugin()
+    var supply_plugin = $('#purchase_order_rows_wrapper').data('supplyplugin');
+    supply_plugin.populateSupplyRows();
+
+}
 
 function warehouse_dropdown_change() {
     $('#warehouse_warehouse_id').change(function () {
