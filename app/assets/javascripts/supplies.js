@@ -33,30 +33,24 @@
             });
             $(table_thead).append(table_thead_tr);
 
-            var mur = null;
+            fetchPurchaseOrder(purchase_order_id, function(purchase_order) {
+                var table_tbody = document.createElement('tbody');
+                $.each(purchase_order.purchase_order_rows, function(purchase_order_rows_index, purchase_order_rows_value){
+                    var table_tr = document.createElement('tr');
+                    $.each(purchase_order_row_headers, function(header_index, header_value){
+                        var table_td = document.createElement('td');
+                        $(table_td).html(purchase_order_rows_value[header_value]);
 
-            fetchPurchaseOrder(purchase_order_id, mur = test(purchase_order));
-
+                        $(table_tr).append(table_td);
+                    });
+                    $(table_tbody).append(table_tr);
+                });
+            });
+            console.log(table_tbody);
             $(table).append(table_thead);
-            $(table).append(mur);
+            $(table).append(table_tbody);
 
             return table;
-        };
-
-        var test = function(purchase_order) {
-            var table_tbody = document.createElement('tbody');
-            $.each(purchase_order.purchase_order_rows, function(purchase_order_rows_index, purchase_order_rows_value){
-                var table_tr = document.createElement('tr');
-                $.each(purchase_order_row_headers, function(header_index, header_value){
-                    var table_td = document.createElement('td');
-                    $(table_td).html(purchase_order_rows_value[header_value]);
-
-                    $(table_tr).append(table_td);
-                });
-                $(table_tbody).append(table_tr);
-            });
-
-            return table_tbody;
         };
 
         var fetchPurchaseOrder = function(purchase_order_id, callback) {
