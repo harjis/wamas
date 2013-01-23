@@ -1,24 +1,91 @@
 (function ($) {
-    var SupplyPlugin = function (element) {
+    var SupplyPlugin = function (element, options) {
         var element = $(element);
         var obj = this;
 
-        this.populateSupplyRows = function () {
-            console.log('populatesupply rows called');
+        this.populateSupplyRows = function (purchase_order_id) {
+            var purchase_order_row_headers = {
+                id: 'id',
+                row_number: 'Row number',
+                name: 'Name',
+                unit_cost: 'Unit cost',
+                order_quantity: 'Order quantity',
+                line_amount: 'Line amount'
+            };
+
+            if(purchase_order_id != '') {
+                var table = generatePurchaseOrderRowTable(purchase_order_id, purchase_order_row_headers);
+
+                $(element).append(table);
+            }
+        };
+
+        var generatePurchaseOrderRowTable = function (purchase_order_id, purchase_order_row_headers) {
+            var table = document.createElement('table');
+            $(table).attr('class', 'purchase_order_row_table');
+
+            var table_thead = document.createElement('thead');
+            var table_thead_tr = document.createElement('tr');
+            $.each(purchase_order_row_headers, function(index,value){
+                var table_th = document.createElement('th');
+                $(table_th).html(value);
+                $(table_thead_tr).append(table_th);
+            });
+            $(table_thead).append(table_thead_tr);
+
+            var mur = null;
+
+            fetchPurchaseOrder(purchase_order_id, mur = test(purchase_order));
+
+            $(table).append(table_thead);
+            $(table).append(mur);
+
+            return table;
+        };
+
+        var test = function(purchase_order) {
+            var table_tbody = document.createElement('tbody');
+            $.each(purchase_order.purchase_order_rows, function(purchase_order_rows_index, purchase_order_rows_value){
+                var table_tr = document.createElement('tr');
+                $.each(purchase_order_row_headers, function(header_index, header_value){
+                    var table_td = document.createElement('td');
+                    $(table_td).html(purchase_order_rows_value[header_value]);
+
+                    $(table_tr).append(table_td);
+                });
+                $(table_tbody).append(table_tr);
+            });
+
+            return table_tbody;
+        };
+
+        var fetchPurchaseOrder = function(purchase_order_id, callback) {
+            $.ajax({
+                async: true,
+                dataType: 'json',
+                type: 'GET',
+                url: '/purchase_orders/' + purchase_order_id + '.json'
+            }).done(function(data){
+                    if( console && console.log ) {
+                        console.log('Purchase order was fetched');
+                    }
+
+                    callback(data);
+                });
         };
     };
 
-    $.fn.supplyplugin = function () {
+    $.fn.supplyPlugin = function () {
         return this.each(function () {
             var element = $(this);
 
-            if (element.data('supplyplugin')) {
+            if (element.data('supplyPlugin')) {
                 return;
             }
 
-            var supplyplugin = new SupplyPlugin(this);
+            var supplyPlugin = new SupplyPlugin(this);
 
-            element.data('supplyplugin', supplyplugin);
+            element.data('supplyPlugin', supplyPlugin);
         });
     };
 
@@ -36,9 +103,9 @@ function bind_purchase_order_change() {
 }
 
 function populate_purchase_order_rows(purchase_order_id) {
-    $('#purchase_order_rows_wrapper').supplyplugin()
-    var supply_plugin = $('#purchase_order_rows_wrapper').data('supplyplugin');
-    supply_plugin.populateSupplyRows();
+    $('#purchase_order_rows_wrapper').supplyPlugin();
+    var supply_plugin = $('#purchase_order_rows_wrapper').data('supplyPlugin');
+    supply_plugin.populateSupplyRows(purchase_order_id);
 
 }
 

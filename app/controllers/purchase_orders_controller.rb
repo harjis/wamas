@@ -19,7 +19,7 @@ class PurchaseOrdersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @purchase_order }
+      format.json { render json: @purchase_order, :include => :purchase_order_rows}
     end
   end
 
