@@ -40,6 +40,8 @@ class SuppliesController < ApplicationController
   # POST /supplies
   # POST /supplies.json
   def create
+    logger.debug params
+    exit 1
     @supply = Supply.new(params[:supply])
 
     respond_to do |format|
