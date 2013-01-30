@@ -84,4 +84,17 @@ class PurchaseOrdersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # GET /purchase_orders/receive/1
+  # GET /purchase_orders/receive/1.json
+  def receive
+    @purchase_order = PurchaseOrder.find(params[:id])
+
+    @supply = Supply.new
+
+    respond_to do |format|
+      format.html { render action: "receive" }
+      format.json { head :no_content}
+    end
+  end
 end

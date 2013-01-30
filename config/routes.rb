@@ -1,5 +1,10 @@
 Wamas::Application.routes.draw do
 
+  resources :supplies do
+    resources :supply_rows
+  end
+
+
   resources :purchase_orders do
     resources :purchase_order_rows
     get :autocomplete_product_name, :on => :collection
@@ -24,7 +29,9 @@ Wamas::Application.routes.draw do
 
   get "sales_orders/autocomplete_product_name"
   get "purchase_orders/autocomplete_product_name"
-  
+
+  get 'purchase_orders/receive/:id'  => 'purchase_orders#receive'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

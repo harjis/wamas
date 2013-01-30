@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130112204406) do
+ActiveRecord::Schema.define(:version => 20130130175522) do
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(:version => 20130112204406) do
     t.datetime "updated_at",          :null => false
   end
 
+  create_table "purchase_orders_supplies", :force => true do |t|
+    t.integer  "purchase_order_id"
+    t.integer  "supply_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "purchase_orders_supplies", ["purchase_order_id"], :name => "index_purchase_orders_supplies_on_purchase_order_id"
+  add_index "purchase_orders_supplies", ["supply_id"], :name => "index_purchase_orders_supplies_on_supply_id"
+
   create_table "sales_order_rows", :force => true do |t|
     t.string   "name"
     t.integer  "row_number"
@@ -69,6 +79,57 @@ ActiveRecord::Schema.define(:version => 20130112204406) do
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end
+
+  create_table "shipment_rows", :force => true do |t|
+    t.integer  "shipment_id"
+    t.integer  "shipment_row_number"
+    t.integer  "shipped_quantity"
+    t.integer  "warehouse_entry_id"
+    t.float    "unit_price"
+    t.float    "unit_price_lcy"
+    t.float    "discount_percent"
+    t.float    "discount_amount"
+    t.float    "discount_amount_lcy"
+    t.float    "total_amount"
+    t.float    "total_amount_lcy"
+    t.float    "unit_cost"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "shipment_rows", ["shipment_id"], :name => "index_shipment_rows_on_shipment_id"
+  add_index "shipment_rows", ["warehouse_entry_id"], :name => "index_shipment_rows_on_warehouse_entry_id"
+
+  create_table "shipments", :force => true do |t|
+    t.integer  "sales_order_id"
+    t.string   "name"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "shipments", ["sales_order_id"], :name => "index_shipments_on_sales_order_id"
+
+  create_table "supplies", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "supply_rows", :force => true do |t|
+    t.integer  "supply_id"
+    t.integer  "supply_row_number"
+    t.integer  "supplied_quantity"
+    t.integer  "warehouse_entry_id"
+    t.float    "unit_cost"
+    t.float    "unit_cost_lcy"
+    t.float    "total_amount"
+    t.float    "total_amount_lcy"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "supply_rows", ["supply_id"], :name => "index_supply_rows_on_supply_id"
+  add_index "supply_rows", ["warehouse_entry_id"], :name => "index_supply_rows_on_warehouse_entry_id"
 
   create_table "warehouse_entries", :force => true do |t|
     t.integer  "product_id"

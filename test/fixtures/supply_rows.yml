@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  supply: 
+  supply_row_number: 1
+  supplied_quantity: 1
+  warehouse_entry: 
+  unit_cost: 1.5
+  unit_cost_lcy: 1.5
+  total_amount: 1.5
+  total_amount_lcy: 1.5
+
+two:
+  supply: 
+  supply_row_number: 1
+  supplied_quantity: 1
+  warehouse_entry: 
+  unit_cost: 1.5
+  unit_cost_lcy: 1.5
+  total_amount: 1.5
+  total_amount_lcy: 1.5

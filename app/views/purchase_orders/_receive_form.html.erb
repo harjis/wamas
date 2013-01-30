@@ -1,0 +1,46 @@
+<%= nested_form_for(@supply) do |f| %>
+    <% if @supply.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@supply.errors.count, "error") %> prohibited this supply from being
+            saved:</h2>
+
+          <ul>
+            <% @supply.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <p>
+      <b>Order number:</b>
+      <%= @purchase_order.order_number %>
+    </p>
+
+    <p>
+      <b>Warehouse:</b>
+      <%= collection_select(:warehouse, :id, Warehouse.all, :id, :name, {:prompt => 'Select a warehouse'}) %>
+    </p>
+
+    <div class="supply_rows">
+      <table>
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Order quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @purchase_order.purchase_order_rows.each do |purchase_order_row| %>
+            <tr>
+              <%= f.fields_for :supply_rows do |supply_row_form| %>
+                  <%= supply_row_form.hidden_field %>
+                  <td align="center"><%= purchase_order_row.name %></td>
+                  <td align="center"><%= purchase_order_row.order_quantity%></td>
+              <% end %>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+<% end %>
