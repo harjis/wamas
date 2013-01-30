@@ -1,6 +1,12 @@
 <div class="purchase_order">
-  <%= hidden_field :purchase_order_id, :id => 'real_purchase_order_id' %>
-  <%= collection_select(:purchase_order, :id, PurchaseOrder.all, :id, :order_number, {:prompt => "Select a Purchase order"}, {:class => 'purchase_orders'}) %>
+  <select class="purchase_orders" name='supply[supply_rows_attributes][][purchase_order_id]'><!-- the idea is that the empty [] will hold the id of the p_order once its selected -->
+    <option value="">Select a purchase order</option>
+    <% PurchaseOrder.all.each do |purchase_order| %>
+    <option value='<%= purchase_order.id %>'>
+      <%= purchase_order.order_number%>
+    </option>
+    <% end %>
+  </select>
   <%= link_to_remove_purchase_order('remove', f) %>
   <br/>
 </div>

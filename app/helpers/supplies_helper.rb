@@ -4,6 +4,7 @@ module SuppliesHelper
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
       render(association.to_s.singularize + "_dropdown", :f => builder)
     end
+    logger.debug fields
     link_to_function(name, "add_purchase_order(this, \"#{association}\", \"#{escape_javascript(fields)}\")")
   end
 

@@ -44,6 +44,7 @@ class PurchaseOrdersController < ApplicationController
   # POST /purchase_orders
   # POST /purchase_orders.json
   def create
+    exit 1
     @purchase_order = PurchaseOrder.new(params[:purchase_order])
 
     respond_to do |format|
@@ -60,6 +61,7 @@ class PurchaseOrdersController < ApplicationController
   # PUT /purchase_orders/1
   # PUT /purchase_orders/1.json
   def update
+    exit 1
     @purchase_order = PurchaseOrder.find(params[:id])
 
     respond_to do |format|

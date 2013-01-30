@@ -52,20 +52,24 @@
                 var table_tbody = document.createElement('tbody');
                 $.each(purchase_order.purchase_order_rows, function(purchase_order_rows_index, purchase_order_rows_value){
                     var table_tr = document.createElement('tr');
+                    var purchase_order_row_id = '';
                     $.each(purchase_order_row_headers, function(header_index, header_value){
                         if(purchase_order_rows_value.hasOwnProperty(header_index)) {
                             var table_td = document.createElement('td');
                             $(table_td).attr('align', 'center').html(purchase_order_rows_value[header_index]);
 
                             if(header_index == 'id') {
+                                purchase_order_row_id = purchase_order_rows_value[header_index];
+                                var id_input = document.createElement('input');
+                                $(id_input).attr('type', 'hidden').attr('name' , 'supply[supply_rows_attributes]['+purchase_order.id+'][warehouse_entry]['+purchase_order_row_id+'][purchase_order_id]').val(purchase_order_rows_value[header_index]);
                                 $(table_td).css('display', 'none');
                             }
 
                             $(table_tr).append(table_td);
                         }
                     });
-                    $(table_tr).append(warehouseSpotTableTD(warehouse_id));
-                    $(table_tr).append(suppliedQuantityTableTD());
+                    $(table_tr).append(warehouseSpotTableTD(warehouse_id, purchase_order.id, purchase_order_row_id));
+                    $(table_tr).append(suppliedQuantityTableTD(purchase_order.id, purchase_order_row_id));
                     $(table_tbody).append(table_tr);
                 });
 
@@ -90,7 +94,7 @@
                 });
         };
 
-        var warehouseSpotTableTD = function (warehouse_id) {
+        var warehouseSpotTableTD = function (warehouse_id, purchase_order_id, purchase_order_row_id) {
             var table_td = document.createElement('td');
             $(table_td).attr('aling', 'center');
 
@@ -104,7 +108,7 @@
             }
 
             var warehouse_spot_select = document.createElement('select');
-            $(warehouse_spot_select).attr('class', 'warehouse_spot_select').attr('name', 'warehouse_spot');
+            $(warehouse_spot_select).attr('class', 'warehouse_spot_select').attr('name', 'supply[supply_rows_attributes]['+purchase_order_id+'][warehouse_entry]['+purchase_order_row_id+'][warehouse_spot]');
 
             var option = new Option('Select a warehouse spot', '');
             $(warehouse_spot_select).append(option);
@@ -120,11 +124,11 @@
             return table_td;
         };
 
-        var suppliedQuantityTableTD = function() {
+        var suppliedQuantityTableTD = function(purchase_order_id, purchase_order_row_id) {
             var table_td = document.createElement('td');
             $(table_td).attr('aling', 'center');
             var supplied_quantity_input = document.createElement('input');
-            $(supplied_quantity_input).attr('class', 'supplied_quantity').attr('name', 'supplied_quantity');
+            $(supplied_quantity_input).attr('class', 'supplied_quantity').attr('name', 'supply[supply_rows_attributes]['+purchase_order_id+'][warehouse_entry]['+purchase_order_row_id+'][supplied_quantity]');
             $(table_td).append(supplied_quantity_input);
 
             return table_td;
@@ -168,6 +172,7 @@ $(document).ready(function () {
 
 function bind_purchase_order_change() {
     $('.purchase_orders').live('change', function () {
+        $(this).attr('name' , 'supply[purchase_orders_attributes]['+$(this).val()+'][purchase_order_id]');
         populate_purchase_order_rows($(this).val(), $(document).find('#warehouse_warehouse_id').val());
     });
 }
