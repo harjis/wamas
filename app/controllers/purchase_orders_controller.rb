@@ -85,12 +85,20 @@ class PurchaseOrdersController < ApplicationController
     end
   end
 
-  # GET /purchase_orders/receive/1
-  # GET /purchase_orders/receive/1.json
-  def receive
+  # GET /purchase_orders/show_receive/1
+  # GET /purchase_orders/show_receive/1.json
+  def show_receive
     @purchase_order = PurchaseOrder.find(params[:id])
 
     @supply = Supply.new
+
+    @purchase_order.purchase_order_rows.each do |purchase_order_row|
+      supply_row = @supply.supply_rows.build
+      supply_row.purchase_order_row_id = purchase_order_row.id
+      supply_row.name = purchase_order_row.name
+      supply_row.supplied_quantity = purchase_order_row.order_quantity
+      supply_row.unit_cost = purchase_order_row.unit_cost
+    end
 
     respond_to do |format|
       format.html { render action: "receive" }

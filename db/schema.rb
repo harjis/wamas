@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130130175522) do
+ActiveRecord::Schema.define(:version => 20130131190656) do
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -110,22 +110,21 @@ ActiveRecord::Schema.define(:version => 20130130175522) do
   add_index "shipments", ["sales_order_id"], :name => "index_shipments_on_sales_order_id"
 
   create_table "supplies", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "warehouse_id"
   end
 
   create_table "supply_rows", :force => true do |t|
     t.integer  "supply_id"
-    t.integer  "supply_row_number"
     t.integer  "supplied_quantity"
     t.integer  "warehouse_entry_id"
     t.float    "unit_cost"
-    t.float    "unit_cost_lcy"
     t.float    "total_amount"
-    t.float    "total_amount_lcy"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.string   "name"
+    t.integer  "purchase_order_row_id"
   end
 
   add_index "supply_rows", ["supply_id"], :name => "index_supply_rows_on_supply_id"
@@ -133,7 +132,7 @@ ActiveRecord::Schema.define(:version => 20130130175522) do
 
   create_table "warehouse_entries", :force => true do |t|
     t.integer  "product_id"
-    t.string   "type"
+    t.string   "entry_type"
     t.integer  "quantity"
     t.integer  "remaining_quantity"
     t.float    "unit_cost"
@@ -146,7 +145,6 @@ ActiveRecord::Schema.define(:version => 20130130175522) do
   create_table "warehouse_entry_spots", :force => true do |t|
     t.integer  "warehouse_entry_id"
     t.integer  "warehouse_spot_id"
-    t.float    "spot_weight"
     t.integer  "spot_quantity"
     t.integer  "remaining_spot_quantity"
     t.datetime "created_at",              :null => false

@@ -1,10 +1,27 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
-  <%= @supply.name %>
+  <b>ID:</b>
+  <%= @supply.id %>
 </p>
 
+<p>
+  <b>Warehouse:</b>
+  <%= @supply.warehouse.name %>
+</p>
 
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Supplied quantity</th>
+    <th>Warehouse spot</th>
+  </tr>
+  </thead>
+  <tbody>
+  <%= render @supply.supply_rows %>
+  </tbody>
+</table>
+<br/>
 <%= link_to 'Edit', edit_supply_path(@supply) %> |
 <%= link_to 'Back', supplies_path %>

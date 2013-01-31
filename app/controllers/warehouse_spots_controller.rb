@@ -84,4 +84,14 @@ class WarehouseSpotsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # GET /warehouse_spots/all_by_warehouse_id/1
+  # GET /warehouse_spots/all_by_warehouse_id/1.json
+  def all_by_warehouse_id
+    @warehouse_spots = WarehouseSpot.find_all_by_warehouse_id(params[:warehouse_id])
+
+    respond_to do |format|
+      format.json { render json: @warehouse_spots }
+    end
+  end
 end
