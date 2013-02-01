@@ -1,3 +1,5 @@
+<% javascript 'supplies' %>
+
 <%= nested_form_for(@supply, :url => {:controller => 'supplies', :action => 'receive'}) do |f| %>
     <% if @supply.errors.any? %>
         <div id="error_explanation">

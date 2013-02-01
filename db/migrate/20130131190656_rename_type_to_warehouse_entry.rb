@@ -4,5 +4,6 @@ class RenameTypeToWarehouseEntry < ActiveRecord::Migration
   end
 
   def down
+    rename_column :warehouse_entries, :entry_type, :type
   end
 end

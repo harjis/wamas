@@ -84,4 +84,25 @@ class SalesOrdersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # GET /sales_orders/show_delivery/1
+  # GET /sales_orders/show_delivery/1.json
+  def show_delivery
+    @sales_order = SalesOrder.find(params[:id])
+
+    @shipment = Shipment.new
+
+    @sales_order.sales_order_rows.each do |sales_order_row|
+      shipment_row = @shipment.shipment_rows.build
+      shipment_row.sales_order_row_id = sales_order_row.id
+      shipment_row.name = sales_order_row.name
+      shipment_row.shipped_quantity = sales_order_row.order_quantity
+      shipment_row.unit_price = sales_order_row.unit_price
+    end
+
+    respond_to do |format|
+      format.html { render action: "delivery" }
+      format.json { head :no_content }
+    end
+  end
 end

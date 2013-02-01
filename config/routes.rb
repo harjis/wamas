@@ -1,5 +1,10 @@
 Wamas::Application.routes.draw do
 
+  resources :shipments do
+    resource :shipment_rows
+  end
+
+
   resources :supplies do
     resources :supply_rows
   end
@@ -33,6 +38,9 @@ Wamas::Application.routes.draw do
 
   get 'purchase_orders/show_receive/:id'  => 'purchase_orders#show_receive'
   post 'supplies/receive/' => 'supplies#receive'
+
+  get 'sales_orders/show_delivery/:id' => 'sales_orders#show_delivery'
+  post 'shipments/deliver' => 'shipments#deliver'
 
   get 'warehouse_spots/all_by_warehouse_id/:warehouse_id'  => 'warehouse_spots#all_by_warehouse_id'
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130131190656) do
+ActiveRecord::Schema.define(:version => 20130201194143) do
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -82,32 +82,29 @@ ActiveRecord::Schema.define(:version => 20130131190656) do
 
   create_table "shipment_rows", :force => true do |t|
     t.integer  "shipment_id"
-    t.integer  "shipment_row_number"
-    t.integer  "shipped_quantity"
+    t.integer  "sales_order_row_id"
     t.integer  "warehouse_entry_id"
+    t.integer  "shipped_quantity"
     t.float    "unit_price"
-    t.float    "unit_price_lcy"
-    t.float    "discount_percent"
-    t.float    "discount_amount"
-    t.float    "discount_amount_lcy"
     t.float    "total_amount"
-    t.float    "total_amount_lcy"
-    t.float    "unit_cost"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "name"
   end
 
+  add_index "shipment_rows", ["sales_order_row_id"], :name => "index_shipment_rows_on_sales_order_row_id"
   add_index "shipment_rows", ["shipment_id"], :name => "index_shipment_rows_on_shipment_id"
   add_index "shipment_rows", ["warehouse_entry_id"], :name => "index_shipment_rows_on_warehouse_entry_id"
 
   create_table "shipments", :force => true do |t|
     t.integer  "sales_order_id"
-    t.string   "name"
+    t.integer  "warehouse_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
 
   add_index "shipments", ["sales_order_id"], :name => "index_shipments_on_sales_order_id"
+  add_index "shipments", ["warehouse_id"], :name => "index_shipments_on_warehouse_id"
 
   create_table "supplies", :force => true do |t|
     t.datetime "created_at",   :null => false

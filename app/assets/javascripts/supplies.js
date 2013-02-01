@@ -5,7 +5,7 @@
 
         var warehouse_spots = new Array();
 
-        this.populateWarehouseDropdowns = function (warehouse_id) {
+        this.populateWarehouseSpotDropdowns = function (warehouse_id) {
             var warehouse_spot_dropdowns = $(element).find('.warehouse_spot');
 
             var warehouse_spots_request_obj = fetchWarehouseSpots(warehouse_id);
@@ -17,6 +17,7 @@
                         $(dropdown).append(option);
 
                         var attr = $(dropdown).attr('name');
+                        //some weird bug here, doesnt go into if
                         if (typeof attr !== 'undefined' && attr !== false) {
                             var supply_row_index = $(dropdown).attr('name');
                             supply_row_index = supply_row_index.replace(/\D/g, '');
@@ -72,7 +73,7 @@ function warehouseDropdownChange() {
         flush_warehouse_spot_dropdowns();
         $('.supply_rows').supplyPlugin();
         var supply_plugin = $('.supply_rows').data('supplyPlugin');
-        supply_plugin.populateWarehouseDropdowns($(this).val());
+        supply_plugin.populateWarehouseSpotDropdowns($(this).val());
     });
 }
 
