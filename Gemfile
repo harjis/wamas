@@ -24,6 +24,8 @@ gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete'
 gem 'jquery-ui-rails'
 gem 'nifty-generators'
+gem 'quiet_assets', :group => :development
+gem 'nested_form'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
