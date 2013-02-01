@@ -1,0 +1,9 @@
+<tr>
+  <td align='center'><%= supply_row.name %></td>
+  <td align='center'><%= supply_row.supplied_quantity %></td>
+  <td align='center'>
+    <% supply_row.warehouse_entry.warehouse_entry_spots.each do |entry_spot| %>
+    <%= entry_spot.warehouse_spot.row %>-<%= entry_spot.warehouse_spot.level %>-<%= entry_spot.warehouse_spot.position %>
+    <% end %>
+  </td>
+</tr>
