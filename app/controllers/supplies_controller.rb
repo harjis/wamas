@@ -101,12 +101,13 @@ class SuppliesController < ApplicationController
           supply_row.total_amount = supply_row.supplied_quantity * supply_row.unit_cost
 
           @warehouse_entry_spot = WarehouseEntrySpot.new
-          @warehouse_entry_spot.warehouse_entry_id = @warehouse_entry.id
           @warehouse_entry_spot.warehouse_spot_id = params[:warehouse_spots][i.to_s][:warehouse_spot]
           @warehouse_entry_spot.spot_quantity = supply_row.supplied_quantity
           @warehouse_entry_spot.remaining_spot_quantity = supply_row.supplied_quantity
+          #@warehouse_entry_spot.warehouse_entry_id = @warehouse_entry.id
 
-          if @warehouse_entry_spot.save
+          if @warehouse_entry.warehouse_entry_spots.create(:warehouse_spot_id => params[:warehouse_spots][i.to_s][:warehouse_spot], :spot_quantity => supply_row.supplied_quantity, :remaining_spot_quantity => supply_row.supplied_quantity)
+            #@warehouse_entry_spot.warehouse_entries.create(:id => @warehouse_entry);
             if @supply.save
               format.html { redirect_to @supply, notice: 'Supply was successfully updated.' }
               format.json { head :no_content }

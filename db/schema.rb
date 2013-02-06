@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201194143) do
+ActiveRecord::Schema.define(:version => 20130206191226) do
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -139,8 +139,15 @@ ActiveRecord::Schema.define(:version => 20130201194143) do
 
   add_index "warehouse_entries", ["product_id"], :name => "index_warehouse_entries_on_product_id"
 
+  create_table "warehouse_entries_warehouse_entry_spots", :id => false, :force => true do |t|
+    t.integer "warehouse_entry_id"
+    t.integer "warehouse_entry_spot_id"
+  end
+
+  add_index "warehouse_entries_warehouse_entry_spots", ["warehouse_entry_id"], :name => "index_warehouse_entry_link_on_warehouse_entry_id"
+  add_index "warehouse_entries_warehouse_entry_spots", ["warehouse_entry_spot_id"], :name => "index_warehouse_entry_link_on_warehouse_spot_id"
+
   create_table "warehouse_entry_spots", :force => true do |t|
-    t.integer  "warehouse_entry_id"
     t.integer  "warehouse_spot_id"
     t.integer  "spot_quantity"
     t.integer  "remaining_spot_quantity"
@@ -148,7 +155,6 @@ ActiveRecord::Schema.define(:version => 20130201194143) do
     t.datetime "updated_at",              :null => false
   end
 
-  add_index "warehouse_entry_spots", ["warehouse_entry_id"], :name => "index_warehouse_entry_spots_on_warehouse_entry_id"
   add_index "warehouse_entry_spots", ["warehouse_spot_id"], :name => "index_warehouse_entry_spots_on_warehouse_spot_id"
 
   create_table "warehouse_spots", :force => true do |t|
@@ -158,6 +164,7 @@ ActiveRecord::Schema.define(:version => 20130201194143) do
     t.integer  "position"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "name"
   end
 
   add_index "warehouse_spots", ["warehouse_id"], :name => "index_warehouse_spots_on_warehouse_id"

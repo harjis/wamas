@@ -41,7 +41,7 @@
         <%= f.fields_for :shipment_rows do |shipment_row_form| %>
             <tr class='shipment_row'>
               <td>
-                <%= shipment_row_form.hidden_field :sales_order_row_id %>
+                <%= shipment_row_form.hidden_field :sales_order_row_id, :class => 'sales_order_id' %>
                 <%= shipment_row_form.hidden_field :name %>
                 <%= shipment_row_form.hidden_field :unit_price %>
               </td>

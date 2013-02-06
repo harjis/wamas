@@ -12,8 +12,7 @@
             warehouse_spots_request_obj.done(function (fetched_warehouse_spots) {
                 $.each(fetched_warehouse_spots, function (index, warehouse_spot) {
                     $.each(warehouse_spot_dropdowns, function (index, dropdown) {
-                        var dropdown_text = warehouse_spot.row + '-' + warehouse_spot.level + '-' + warehouse_spot.position;
-                        var option = new Option(dropdown_text, warehouse_spot.id);
+                        var option = new Option(warehouse_spot.name, warehouse_spot.id);
                         $(dropdown).append(option);
 
                         var attr = $(dropdown).attr('name');
