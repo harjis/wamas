@@ -5,5 +5,5 @@ class Shipment < ActiveRecord::Base
 
   accepts_nested_attributes_for :shipment_rows, :allow_destroy => true
 
-  attr_accessible :shipment_rows, :warehouse
+  attr_accessible :shipment_rows_attributes, :warehouse
 end

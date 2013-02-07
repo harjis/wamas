@@ -1,6 +1,6 @@
 <tr class="purchase_order_row">
-  <td><%= f.hidden_field :product_id, :id => 'real_product_id' %></td>
-  <td><%= f.autocomplete_field :name, autocomplete_product_name_sales_orders_path, :id_element => '#real_product_id' %></td>
+  <td><%= f.hidden_field :product_id, :class => 'real_product_id' %></td>
+  <td><%= f.autocomplete_field :name, autocomplete_product_name_sales_orders_path, :class => 'product_autocomplete' %></td>
   <td><%= f.text_field :order_quantity %></td>
   <td><%= f.text_field :unit_cost %></td>
   <td><%= link_to_remove_purchase_order_row "remove", f %></td>

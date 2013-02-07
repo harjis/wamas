@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130206191226) do
+ActiveRecord::Schema.define(:version => 20130207185601) do
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(:version => 20130206191226) do
 
   create_table "purchase_order_rows", :force => true do |t|
     t.string   "name"
-    t.integer  "row_number"
     t.integer  "order_quantity"
     t.float    "unit_cost"
     t.float    "line_amount"
@@ -45,11 +44,9 @@ ActiveRecord::Schema.define(:version => 20130206191226) do
     t.datetime "updated_at",          :null => false
   end
 
-  create_table "purchase_orders_supplies", :force => true do |t|
-    t.integer  "purchase_order_id"
-    t.integer  "supply_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+  create_table "purchase_orders_supplies", :id => false, :force => true do |t|
+    t.integer "purchase_order_id"
+    t.integer "supply_id"
   end
 
   add_index "purchase_orders_supplies", ["purchase_order_id"], :name => "index_purchase_orders_supplies_on_purchase_order_id"
@@ -57,13 +54,10 @@ ActiveRecord::Schema.define(:version => 20130206191226) do
 
   create_table "sales_order_rows", :force => true do |t|
     t.string   "name"
-    t.integer  "row_number"
     t.integer  "order_quantity"
     t.float    "unit_price"
     t.float    "discount_percent"
-    t.float    "discount_amount"
     t.float    "line_amount"
-    t.float    "unit_cost"
     t.integer  "sales_order_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
@@ -131,10 +125,8 @@ ActiveRecord::Schema.define(:version => 20130206191226) do
     t.integer  "product_id"
     t.string   "entry_type"
     t.integer  "quantity"
-    t.integer  "remaining_quantity"
-    t.float    "unit_cost"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "warehouse_entries", ["product_id"], :name => "index_warehouse_entries_on_product_id"

@@ -27,8 +27,7 @@ class SalesOrdersController < ApplicationController
   # GET /sales_orders/new.json
   def new
     @sales_order = SalesOrder.new
-
-    sales_order_row = @sales_order.sales_order_rows.build
+    @sales_order.sales_order_rows.build
 
     respond_to do |format|
       format.html # new.html.erb

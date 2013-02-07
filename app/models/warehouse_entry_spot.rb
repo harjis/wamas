@@ -4,5 +4,7 @@ class WarehouseEntrySpot < ActiveRecord::Base
 
   accepts_nested_attributes_for :warehouse_entries
 
-  attr_accessible :remaining_spot_quantity, :spot_quantity, :warehouse_spots_attributes, :warehouse_entry_id, :warehouse_spot_id
+  attr_accessible :remaining_spot_quantity, :spot_quantity,
+                  :warehouse_spots_attributes, :warehouse_entry_id,
+                  :warehouse_spot_id
 end

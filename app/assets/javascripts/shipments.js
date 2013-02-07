@@ -9,7 +9,11 @@
             var shipment_rows = $(element).find('.shipment_row');
 
             $.each(shipment_rows, function(index, shipment_row) {
-                var warehouse_spots_request_object = fetchWarehouseSpotsWithBalanceBySalesOrderRow(warehouse_id, $(shipment_row).find('input.sales_order_id').val());
+                var warehouse_spots_request_object =
+                    fetchWarehouseSpotsWithBalanceBySalesOrderRow(
+                        warehouse_id,
+                        $(shipment_row).find('input.sales_order_id').val()
+                    );
                 warehouse_spots_request_object.done(function(fetched_warehouse_spots) {
                     $.each(fetched_warehouse_spots, function(index2, warehouse_spot) {
                         $.each(warehouse_spot.warehouse_entry_spots, function(index3, warehouse_entry_spot){

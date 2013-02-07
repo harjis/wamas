@@ -24,7 +24,7 @@
       <%= collection_select(:warehouse, :warehouse_id, Warehouse.all, :id, :name, {:prompt => 'Select a warehouse'}) %>
     </p>
 
-    <%= hidden_field :sales_order, :id, { :value => @sales_order.id } %>
+    <%= hidden_field :sales_order, :sales_order_id, { :value => @sales_order.id } %>
 
     <div class="shipment_rows">
       <table>

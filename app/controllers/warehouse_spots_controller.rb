@@ -106,12 +106,14 @@ class WarehouseSpotsController < ApplicationController
     #.where('warehouse_entries.product_id = ?', @sales_order_row.product)
     #.where('warehouse_entry_spots.remaining_spot_quantity > 0')
 
-    @warehouse_spots = WarehouseSpot.joins(:warehouse_entry_spots => [{:warehouse_entry => :product}])
+    @warehouse_spots = WarehouseSpot.joins(:warehouse_entry_spots => [{:warehouse_entries => :product}])
     .where(:warehouse_id => params[:warehouse_id])
     .where('warehouse_entries.product_id = ?', @sales_order_row.product)
     .where('warehouse_entry_spots.remaining_spot_quantity > 0')
+    .group('warehouse_spots.id')
 
     respond_to do |format|
+      #format.json { render json: @warehouse_spots }
       format.json { render json: @warehouse_spots.to_json(:include => :warehouse_entry_spots) }
     end
   end
