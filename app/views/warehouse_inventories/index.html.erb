@@ -1,0 +1,23 @@
+<h1>Listing warehouse_inventories</h1>
+
+<table>
+  <tr>
+    <th>Warehouse</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @warehouse_inventories.each do |warehouse_inventory| %>
+  <tr>
+    <td><%= warehouse_inventory.warehouse %></td>
+    <td><%= link_to 'Show', warehouse_inventory %></td>
+    <td><%= link_to 'Edit', edit_warehouse_inventory_path(warehouse_inventory) %></td>
+    <td><%= link_to 'Destroy', warehouse_inventory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Warehouse inventory', new_warehouse_inventory_path %>

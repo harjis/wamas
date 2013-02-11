@@ -6,16 +6,16 @@ class WarehouseEntry < ActiveRecord::Base
 
   def populate_by_shipment_or_supply(row)
     if !row.blank?
-      if row.instance_of?('Supply')
-        if row.supplied_quantity.blank?
+      if row.instance_of? SupplyRow
+        if !row.supplied_quantity.blank?
           self.quantity = row.supplied_quantity
         end
         if !row.purchase_order_row.product_id.blank?
           self.product_id = row.purchase_order_row.product.id
         end
         self.entry_type = 'supply'
-      elsif row.instance_of?('Shipment')
-        if row.shipped_quantity.blank?
+      elsif row.instance_of? ShipmentRow
+        if !row.shipped_quantity.blank?
           self.quantity = row.shipped_quantity
         end
         if !row.sales_order_row.product_id.blank?

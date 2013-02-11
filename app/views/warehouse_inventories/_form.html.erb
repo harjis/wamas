@@ -1,0 +1,35 @@
+<%= javascript 'warehouse_inventories' %>
+<%= javascript 'products' %>
+
+<%= form_for(@warehouse_inventory) do |f| %>
+    <% if @warehouse_inventory.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@warehouse_inventory.errors.count, "error") %> prohibited this warehouse_inventory from
+            being saved:</h2>
+
+          <ul>
+            <% @warehouse_inventory.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :warehouse %>
+      <br/>
+      <%= collection_select(:warehouse_inventory, :warehouse_id, Warehouse.all, :id, :name, {:prompt => 'Select a warehouse'}) %>
+    </div>
+
+    <div id="warehouse_inventory_rows">
+      <%= f.fields_for :warehouse_inventory_rows do |builder| %>
+          <%= render 'warehouse_inventory_rows/warehouse_inventory_rows_table', :f => builder %>
+      <% end %>
+    </div>
+
+    <br/>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

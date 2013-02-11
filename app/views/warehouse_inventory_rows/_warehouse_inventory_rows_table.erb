@@ -1,0 +1,12 @@
+<div class="warehouse_inventory_row">
+  <%= f.hidden_field :product_id, :class => 'real_product_id' %>
+  <span>
+    <%= f.autocomplete_field :name, autocomplete_product_name_sales_orders_path, :class => 'product_autocomplete' %>
+  </span>
+  <span>
+    <%= f.text_field :quantity, :disabled => 'disabled', :class => 'database_quantity' %>
+  </span>
+  <span>
+    <%= f.text_field :counted_quantity %>
+  </span>
+</div>

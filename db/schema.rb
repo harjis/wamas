@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207185601) do
+ActiveRecord::Schema.define(:version => 20130211155541) do
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -148,6 +148,24 @@ ActiveRecord::Schema.define(:version => 20130207185601) do
   end
 
   add_index "warehouse_entry_spots", ["warehouse_spot_id"], :name => "index_warehouse_entry_spots_on_warehouse_spot_id"
+
+  create_table "warehouse_inventories", :force => true do |t|
+    t.integer  "warehouse_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "warehouse_inventories", ["warehouse_id"], :name => "index_warehouse_inventories_on_warehouse_id"
+
+  create_table "warehouse_inventory_rows", :force => true do |t|
+    t.integer  "warehouse_inventory_id"
+    t.integer  "warehouse_entry_id"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
+  add_index "warehouse_inventory_rows", ["warehouse_entry_id"], :name => "index_warehouse_inventory_rows_on_warehouse_entry_id"
+  add_index "warehouse_inventory_rows", ["warehouse_inventory_id"], :name => "index_warehouse_inventory_rows_on_warehouse_inventory_id"
 
   create_table "warehouse_spots", :force => true do |t|
     t.integer  "warehouse_id"
