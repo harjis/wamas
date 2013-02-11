@@ -1,3 +1,5 @@
+<% javascript 'supplies' %>
+
 <%= nested_form_for(@supply, :url => {:controller => 'supplies', :action => 'receive'}) do |f| %>
     <% if @supply.errors.any? %>
         <div id="error_explanation">
@@ -22,7 +24,7 @@
       <%= collection_select(:warehouse, :warehouse_id, Warehouse.all, :id, :name, {:prompt => 'Select a warehouse'}) %>
     </p>
 
-    <%= hidden_field :purchase_order, :id, { :value => @purchase_order.id } %>
+    <%= hidden_field :purchase_order, :purchase_order_id, { :value => @purchase_order.id } %>
 
     <div class="supply_rows">
       <table>

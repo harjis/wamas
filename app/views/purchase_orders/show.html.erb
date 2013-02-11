@@ -15,6 +15,9 @@
   <%= @purchase_order.completely_invoiced %>
 </p>
 
+<h2>Purchase order rows</h2>
+<%= render @purchase_order.purchase_order_rows %>
+
 
 <%= link_to 'Edit', edit_purchase_order_path(@purchase_order) %> |
 <%= link_to 'Back', purchase_orders_path %>

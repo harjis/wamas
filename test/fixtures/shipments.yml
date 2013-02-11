@@ -2,8 +2,8 @@
 
 one:
   sales_order: 
-  name: MyString
+  warehouse: 
 
 two:
   sales_order: 
-  name: MyString
+  warehouse: 

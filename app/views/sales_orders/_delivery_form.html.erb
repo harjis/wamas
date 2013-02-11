@@ -1,0 +1,59 @@
+<% javascript 'shipments' %>
+
+<%= nested_form_for(@shipment, :url => {:controller => 'shipments', :action => 'deliver'}) do |f| %>
+    <% if @shipment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@shipment.errors.count, "error") %> prohibited this shipment from being
+            saved:</h2>
+
+          <ul>
+            <% @shipment.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <p>
+      <b>Order number:</b>
+      <%= @sales_order.order_number %>
+    </p>
+
+    <p>
+      <b>Warehouse:</b>
+      <%= collection_select(:warehouse, :warehouse_id, Warehouse.all, :id, :name, {:prompt => 'Select a warehouse'}) %>
+    </p>
+
+    <%= hidden_field :sales_order, :sales_order_id, { :value => @sales_order.id } %>
+
+    <div class="shipment_rows">
+      <table>
+        <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Order quantity</th>
+          <th>Shipped quantity</th>
+          <th>Warehouse spot</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%= f.fields_for :shipment_rows do |shipment_row_form| %>
+            <tr class='shipment_row'>
+              <td>
+                <%= shipment_row_form.hidden_field :sales_order_row_id, :class => 'sales_order_id' %>
+                <%= shipment_row_form.hidden_field :name %>
+                <%= shipment_row_form.hidden_field :unit_price %>
+              </td>
+              <td align="center"><%= shipment_row_form.text_field :name, {:disabled => 'disabled'} %></td>
+              <td align="center"><%= shipment_row_form.text_field :shipped_quantity, {:disabled => 'disabled'} %></td>
+              <td align="center"><%= shipment_row_form.text_field :shipped_quantity, {:class => 'shipped_quantity'} %></td>
+              <td align="center"><select class='warehouse_entry_spot'><option>Select a warehouse</option></select></td>
+            </tr>
+        <% end %>
+
+        </tbody>
+      </table>
+    </div>
+    <%= f.submit %>
+<% end %>
