@@ -2,28 +2,16 @@
 
 one:
   shipment: 
-  shipment_row_number: 1
-  shipped_quantity: 1
+  sales_order_row: 
   warehouse_entry: 
+  shipped_quantity: 1
   unit_price: 1.5
-  unit_price_lcy: 1.5
-  discount_percent: 1.5
-  discount_amount: 1.5
-  discount_amount_lcy: 1.5
   total_amount: 1.5
-  total_amount_lcy: 1.5
-  unit_cost: 1.5
 
 two:
   shipment: 
-  shipment_row_number: 1
-  shipped_quantity: 1
+  sales_order_row: 
   warehouse_entry: 
+  shipped_quantity: 1
   unit_price: 1.5
-  unit_price_lcy: 1.5
-  discount_percent: 1.5
-  discount_amount: 1.5
-  discount_amount_lcy: 1.5
   total_amount: 1.5
-  total_amount_lcy: 1.5
-  unit_cost: 1.5

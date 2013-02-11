@@ -10,18 +10,8 @@
   <%= @supply.warehouse.name %>
 </p>
 
-<table>
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Supplied quantity</th>
-    <th>Warehouse spot</th>
-  </tr>
-  </thead>
-  <tbody>
-  <%= render @supply.supply_rows %>
-  </tbody>
-</table>
+<%= render 'supply_rows/supply_rows' %>
+
 <br/>
 <%= link_to 'Edit', edit_supply_path(@supply) %> |
 <%= link_to 'Back', supplies_path %>

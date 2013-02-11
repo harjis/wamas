@@ -1,5 +1,10 @@
 Wamas::Application.routes.draw do
 
+  resources :shipments do
+    resource :shipment_rows
+  end
+
+
   resources :supplies do
     resources :supply_rows
   end
@@ -10,6 +15,10 @@ Wamas::Application.routes.draw do
     get :autocomplete_product_name, :on => :collection
   end
 
+  #we need to introduce the custom routes before the standard recources
+  #otherwise warehouse_spots/spots_with_balance_by_warehouse_id_sales_order_row_id would map to warehouse_spots/show
+  get 'warehouse_spots/all_by_warehouse_id/:warehouse_id'  => 'warehouse_spots#all_by_warehouse_id'
+  get 'warehouse_spots/spots_with_balance_by_warehouse_id_sales_order_row_id/:warehouse_id/:sales_order_row_id' => 'warehouse_spots#spots_with_balance'
 
   resources :warehouse_spots do
     get :warehouse_spots_by_warehouse_id
@@ -34,7 +43,8 @@ Wamas::Application.routes.draw do
   get 'purchase_orders/show_receive/:id'  => 'purchase_orders#show_receive'
   post 'supplies/receive/' => 'supplies#receive'
 
-  get 'warehouse_spots/all_by_warehouse_id/:warehouse_id'  => 'warehouse_spots#all_by_warehouse_id'
+  get 'sales_orders/show_delivery/:id' => 'sales_orders#show_delivery'
+  post 'shipments/deliver' => 'shipments#deliver'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

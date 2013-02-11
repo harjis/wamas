@@ -88,26 +88,22 @@ class SuppliesController < ApplicationController
     @supply.warehouse = Warehouse.find(params[:warehouse][:warehouse_id])
 
     respond_to do |format|
-      @supply.supply_rows.each_with_index do |supply_row, i|
-        @warehouse_entry = WarehouseEntry.new
-        @warehouse_entry.quantity = supply_row.supplied_quantity
-        @warehouse_entry.remaining_quantity = supply_row.supplied_quantity
-        @warehouse_entry.unit_cost = supply_row.unit_cost
-        @warehouse_entry.product_id = supply_row.purchase_order_row.product.id
-        @warehouse_entry.entry_type = 'supply'
+      if @supply.save
+        @supply.purchase_orders << PurchaseOrder.find(params[:purchase_order][:purchase_order_id])
+        @supply.supply_rows.each_with_index do |supply_row, i|
+          @warehouse_entry = WarehouseEntry.new
+          @warehouse_entry.populate_by_shipment_or_supply(supply_row)
+          #@warehouse_entry.quantity = supply_row.supplied_quantity
+          #@warehouse_entry.product_id = supply_row.purchase_order_row.product.id
+          #@warehouse_entry.entry_type = 'supply'
 
-        if @warehouse_entry.save
-          supply_row.warehouse_entry_id = @warehouse_entry.id
-          supply_row.total_amount = supply_row.supplied_quantity * supply_row.unit_cost
+          if @warehouse_entry.save
+            supply_row.warehouse_entry_id = @warehouse_entry.id
+            @supply.save
 
-          @warehouse_entry_spot = WarehouseEntrySpot.new
-          @warehouse_entry_spot.warehouse_entry_id = @warehouse_entry.id
-          @warehouse_entry_spot.warehouse_spot_id = params[:warehouse_spots][i.to_s][:warehouse_spot]
-          @warehouse_entry_spot.spot_quantity = supply_row.supplied_quantity
-          @warehouse_entry_spot.remaining_spot_quantity = supply_row.supplied_quantity
-
-          if @warehouse_entry_spot.save
-            if @supply.save
+            if @warehouse_entry.warehouse_entry_spots.create(:warehouse_spot_id => params[:warehouse_spots][i.to_s][:warehouse_spot],
+                                                             :spot_quantity => supply_row.supplied_quantity,
+                                                             :remaining_spot_quantity => supply_row.supplied_quantity)
               format.html { redirect_to @supply, notice: 'Supply was successfully updated.' }
               format.json { head :no_content }
             else
@@ -117,10 +113,9 @@ class SuppliesController < ApplicationController
           else
             # error
           end
-
-        else
-          #error
         end
+      else
+        #error
       end
     end
   end

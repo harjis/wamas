@@ -94,4 +94,27 @@ class WarehouseSpotsController < ApplicationController
       format.json { render json: @warehouse_spots }
     end
   end
+
+  # GET /warehouse_spots/spots_with_balance_by_warehouse_id_sales_order_row_id.json
+  def spots_with_balance
+    @sales_order_row = SalesOrderRow.joins(:product).find(params[:sales_order_row_id])
+
+    #two different ways. first one is lazy load, second one is eager
+
+    #@warehouse_spots = WarehouseSpot.includes(:warehouse_entry_spots => [{:warehouse_entry => :product}])
+    #.where(:warehouse_id => params[:warehouse_id])
+    #.where('warehouse_entries.product_id = ?', @sales_order_row.product)
+    #.where('warehouse_entry_spots.remaining_spot_quantity > 0')
+
+    @warehouse_spots = WarehouseSpot.joins(:warehouse_entry_spots => [{:warehouse_entries => :product}])
+    .where(:warehouse_id => params[:warehouse_id])
+    .where('warehouse_entries.product_id = ?', @sales_order_row.product)
+    .where('warehouse_entry_spots.remaining_spot_quantity > 0')
+    .group('warehouse_spots.id')
+
+    respond_to do |format|
+      #format.json { render json: @warehouse_spots }
+      format.json { render json: @warehouse_spots.to_json(:include => :warehouse_entry_spots) }
+    end
+  end
 end

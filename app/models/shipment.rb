@@ -1,5 +1,9 @@
 class Shipment < ActiveRecord::Base
   belongs_to :sales_order
   has_many :shipment_rows
-  attr_accessible :name
+  belongs_to :warehouse
+
+  accepts_nested_attributes_for :shipment_rows, :allow_destroy => true
+
+  attr_accessible :shipment_rows_attributes, :warehouse
 end
