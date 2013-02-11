@@ -1,0 +1,22 @@
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Supplied quantity</th>
+    <th>Warehouse spot</th>
+  </tr>
+  </thead>
+  <tbody>
+  <%= @supply.supply_rows.each do |supply_row| %>
+      <tr>
+        <td align='center'><%= supply_row.name %></td>
+        <td align='center'><%= supply_row.supplied_quantity %></td>
+        <td align='center'>
+          <% supply_row.warehouse_entry.warehouse_entry_spots.each do |entry_spot| %>
+              <%= entry_spot.warehouse_spot.name %>
+          <% end %>
+        </td>
+      </tr>
+  <%= end %>
+  </tbody>
+</table>

@@ -92,9 +92,10 @@ class SuppliesController < ApplicationController
         @supply.purchase_orders << PurchaseOrder.find(params[:purchase_order][:purchase_order_id])
         @supply.supply_rows.each_with_index do |supply_row, i|
           @warehouse_entry = WarehouseEntry.new
-          @warehouse_entry.quantity = supply_row.supplied_quantity
-          @warehouse_entry.product_id = supply_row.purchase_order_row.product.id
-          @warehouse_entry.entry_type = 'supply'
+          @warehouse_entry.populate_by_shipment_or_supply(supply_row)
+          #@warehouse_entry.quantity = supply_row.supplied_quantity
+          #@warehouse_entry.product_id = supply_row.purchase_order_row.product.id
+          #@warehouse_entry.entry_type = 'supply'
 
           if @warehouse_entry.save
             supply_row.warehouse_entry_id = @warehouse_entry.id

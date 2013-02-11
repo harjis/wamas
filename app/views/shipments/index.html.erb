@@ -11,8 +11,8 @@
 
 <% @shipments.each do |shipment| %>
   <tr>
-    <td><%= shipment.sales_order %></td>
-    <td><%= shipment.warehouse %></td>
+    <td><%= shipment.sales_order.id %></td>
+    <td><%= shipment.warehouse.name %></td>
     <td><%= link_to 'Show', shipment %></td>
     <td><%= link_to 'Edit', edit_shipment_path(shipment) %></td>
     <td><%= link_to 'Destroy', shipment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
