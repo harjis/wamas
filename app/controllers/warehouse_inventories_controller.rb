@@ -1,4 +1,5 @@
 class WarehouseInventoriesController < ApplicationController
+  autocomplete :product, :name, :full => true
   # GET /warehouse_inventories
   # GET /warehouse_inventories.json
   def index
@@ -42,6 +43,9 @@ class WarehouseInventoriesController < ApplicationController
   # POST /warehouse_inventories.json
   def create
     @warehouse_inventory = WarehouseInventory.new(params[:warehouse_inventory])
+    @warehouse_inventory.warehouse.create(params[:warehouse_inventory][:warehouse_id])
+
+
 
     respond_to do |format|
       if @warehouse_inventory.save

@@ -37,12 +37,17 @@ Wamas::Application.routes.draw do
   #otherwise warehouse_spots/spots_with_balance_by_warehouse_id_sales_order_row_id would map to warehouse_spots/show
   get 'warehouse_spots/all_by_warehouse_id/:warehouse_id'  => 'warehouse_spots#all_by_warehouse_id'
   get 'warehouse_spots/spots_with_balance_by_warehouse_id_sales_order_row_id/:warehouse_id/:sales_order_row_id' => 'warehouse_spots#spots_with_balance'
+  get 'warehouse_spots/:warehouse_spot_id/content/:warehouse_id' => 'warehouse_spots#content'
   resources :warehouse_spots do
     get :warehouse_spots_by_warehouse_id
   end
 
   # Warehouse inventory
-  resources :warehouse_inventories
+  get "warehouse_inventories/autocomplete_product_name"
+  resources :warehouse_inventories do
+    resources :warehouse_inventory_rows
+    get :autocomplete_product_name, :on => :collection
+  end
 
   # Warehouse
   resources :warehouses

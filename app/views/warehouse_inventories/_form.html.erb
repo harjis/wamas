@@ -1,7 +1,8 @@
 <%= javascript 'warehouse_inventories' %>
 <%= javascript 'products' %>
+<%= javascript 'warehouse_spots' %>
 
-<%= form_for(@warehouse_inventory) do |f| %>
+<%= nested_form_for(@warehouse_inventory) do |f| %>
     <% if @warehouse_inventory.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@warehouse_inventory.errors.count, "error") %> prohibited this warehouse_inventory from
@@ -22,8 +23,8 @@
     </div>
 
     <div id="warehouse_inventory_rows">
-      <%= f.fields_for :warehouse_inventory_rows do |builder| %>
-          <%= render 'warehouse_inventory_rows/warehouse_inventory_rows_table', :f => builder %>
+      <%= f.fields_for :warehouse_inventory_rows do |warehouse_inventory_row_form| %>
+          <%= render 'warehouse_inventory_rows/warehouse_inventory_rows_table', :warehouse_inventory_row_form => warehouse_inventory_row_form %>
       <% end %>
     </div>
 
