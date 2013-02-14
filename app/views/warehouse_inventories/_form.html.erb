@@ -28,6 +28,20 @@
       <% end %>
     </div>
 
+    <div id="warehouse_inventroy_row_template" style="display:none;">
+        <input class="real_product_id" type="hidden">
+        <input class="warehouse_entry_spot_id" type="hidden">
+        <span>
+            <input role="textbox" autocomplete="off" class="name_helper ui-autocomplete-input" data-autocomplete="/warehouse_inventories/autocomplete_product_name" size="30" type="text">
+        </span>
+        <span>
+            <input class="database_quantity" readonly="readonly" size="30" type="text">
+        </span>
+        <span>
+            <input class="counted_quantity"size="30" type="text">
+        </span>
+    </div>
+
     <br/>
 
     <div class="actions">

@@ -123,6 +123,8 @@ class WarehouseSpotsController < ApplicationController
     @warehouse_spot = WarehouseSpot.joins(:warehouse_entry_spots => [{:warehouse_entries => :product}])
     .where(:id => params[:warehouse_spot_id])
     .where(:warehouse_id => params[:warehouse_id])
+    .group(:id)
+    .first()
 
     respond_to do |format|
       format.json { render json: @warehouse_spot.to_json(

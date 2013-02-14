@@ -26,4 +26,10 @@ class WarehouseEntry < ActiveRecord::Base
       end
     end
   end
+
+  def populate_by_inventory(inventory_row)
+    self.quantity = inventory_row.counted_quantity - inventory_row.database_quantity
+    self.product_id = inventory_row.product
+    self.entry_type = 'inventory'
+  end
 end

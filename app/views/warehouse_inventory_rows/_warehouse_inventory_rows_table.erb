@@ -1,24 +1,9 @@
-<div class="warehouse_inventory_wrapper">
+<div class="warehouse_inventory_row_wrapper">
   <span>
     <select class='warehouse_spot'>
       <option>Select a warehouse</option>
     </select>
+    <br/>
   </span>
   <br/>
-
-  <div class="warehouse_inventory_row">
-    <%= warehouse_inventory_row_form.hidden_field :product, :class => 'real_product_id' %>
-    <div class='child_index' style="display:none;">
-      <%= warehouse_inventory_row_form.nested_child_index_public('warehouse_inventories') %>
-    </div>
-      <span>
-        <%= autocomplete_field_tag 'product[name]', '', autocomplete_product_name_warehouse_inventories_path, :class => 'product_autocomplete' %>
-      </span>
-      <span>
-        <%= text_field_tag :quantity, '', :disabled => 'disabled', :class => 'database_quantity' %>
-      </span>
-      <span>
-        <%= warehouse_inventory_row_form.text_field :counted_quantity %>
-      </span>
-  </div>
 </div>

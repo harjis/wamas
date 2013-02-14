@@ -43,19 +43,44 @@ class WarehouseInventoriesController < ApplicationController
   # POST /warehouse_inventories.json
   def create
     @warehouse_inventory = WarehouseInventory.new(params[:warehouse_inventory])
-    @warehouse_inventory.warehouse.create(params[:warehouse_inventory][:warehouse_id])
+    @warehouse_inventory.warehouse = Warehouse.find(params[:warehouse_inventory][:warehouse_id]);
 
+    @warehouse_inventory.warehouse_inventory_rows.each_with_index do |inventory_row, i|
+      @warehouse_entry = WarehouseEntry.new
+      @warehouse_entry.populate_by_inventory(inventory_row)
 
+      if @warehouse_entry.save
+        inventory_row.warehouse_entry = @warehouse_entry
 
-    respond_to do |format|
-      if @warehouse_inventory.save
-        format.html { redirect_to @warehouse_inventory, notice: 'Warehouse inventory was successfully created.' }
-        format.json { render json: @warehouse_inventory, status: :created, location: @warehouse_inventory }
+        @warehouse_entry_spot = WarehouseEntrySpot.find(params[:warehouse_inventory][i.to_s][:warehouse_entry_spot_id])
+        @warehouse_entry_spot.remaining_spot_quantity = inventory_row.counted_quantity
+        @warehouse_entry_spot.warehouse_entries << @warehouse_entry
+
+        if @warehouse_entry_spot.save
+          if @warehouse_inventory.save
+            respond_to do |format|
+              format.html { redirect_to @warehouse_inventory, notice: 'Warehouse inventory was successfully created.' }
+              format.json { render json: @warehouse_inventory, status: :created, location: @warehouse_inventory }
+            end
+          end
+        else
+          format.html { render action: "new" }
+          format.json { render json: @warehouse_inventory.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render action: "new" }
-        format.json { render json: @warehouse_inventory.errors, status: :unprocessable_entity }
+        #error
       end
     end
+
+    #respond_to do |format|
+    #  if @warehouse_inventory.save
+    #    format.html { redirect_to @warehouse_inventory, notice: 'Warehouse inventory was successfully created.' }
+    #    format.json { render json: @warehouse_inventory, status: :created, location: @warehouse_inventory }
+    #  else
+    #    format.html { render action: "new" }
+    #    format.json { render json: @warehouse_inventory.errors, status: :unprocessable_entity }
+    #  end
+    #end
   end
 
   # PUT /warehouse_inventories/1

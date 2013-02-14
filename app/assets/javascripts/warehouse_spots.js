@@ -12,16 +12,29 @@
                     $(element).append(option);
 
                     var attr = $(element).attr('name');
-                    //some weird bug here, doesnt go into if
                     if (typeof attr !== 'undefined' && attr !== false) {
-                        var spot_index = $(element).parent().parent().find('.child_index').html();
-                        spot_index = spot_index.replace(/\D/g, '');
-                        $(element).attr('name', 'warehouse_spots[' + spot_index + '][warehouse_spot]');
+                        var spot_index = $(element).parent().parent().find('.name_helper').attr('name');
+                        if(spot_index !== 'undefined') {
+                            spot_index = spot_index.replace(/\D/g, '');
+                            $(element).attr('name', 'warehouse_spots[' + spot_index + '][warehouse_spot]');
+                        }
+                        else {
+                            if (console && console.log) {
+                                console.log('ALERT: warehouse spot name attribute was not populated correctly');
+                            }
+                        }
                     }
                     else {
-                        var spot_index = $(element).parent().parent().find('.child_index').html();
-                        spot_index = spot_index.replace(/\D/g, '');
-                        $(element).attr('name', 'warehouse_spots[' + spot_index + '][warehouse_spot]');
+                        var spot_index = $(element).parent().parent().find('.name_helper').attr('name');
+                        if(typeof spot_index !== 'undefined') {
+                            spot_index = spot_index.replace(/\D/g, '');
+                            $(element).attr('name', 'warehouse_spots[' + spot_index + '][warehouse_spot]');
+                        }
+                        else {
+                            if (console && console.log) {
+                                console.log('ALERT: warehouse spot name attribute was not populated correctly');
+                            }
+                        }
                     }
                 });
             });
@@ -54,11 +67,18 @@
             });
         };
 
-        this.populateWarehouseSpotBalance = function (warehouse_id, warehouse_spot_id) {
-            var warehouse_spot_content_request_obj = fetchWarehouseSpotContent(warehouse_id, warehouse_spot_id);
-            warehouse_spot_content_request_obj.done(function (spot_content) {
-
-            });
+        this.fetchWarehouseSpotContent = function (warehouse_id, warehouse_spot_id) {
+            return $.ajax({
+                async:false,
+                dataType:'json',
+                type:'GET',
+                url:'/warehouse_spots/' + warehouse_spot_id + '/content/' + warehouse_id
+            }).done(function (data) {
+                    if (console && console.log) {
+                        console.log('Spot content was fetched');
+                        console.log(data);
+                    }
+                });
         };
 
         var fetchWarehouseSpots = function (warehouse_id) {
@@ -83,11 +103,11 @@
                 url:'/warehouse_spots/' + warehouse_spot_id + '/content/' + warehouse_id
             }).done(function (data) {
                     if (console && console.log) {
-                        console.log('Balance was fetched');
+                        console.log('Spot content was fetched');
                         console.log(data);
                     }
                 });
-        }
+        };
     };
 
     $.fn.warehouseSpotPlugin = function () {
