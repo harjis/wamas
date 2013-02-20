@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130212150944) do
+ActiveRecord::Schema.define(:version => 20130220175714) do
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(:version => 20130212150944) do
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
     t.integer  "counted_quantity"
+    t.float    "database_quantity"
   end
 
   add_index "warehouse_inventory_rows", ["warehouse_entry_id"], :name => "index_warehouse_inventory_rows_on_warehouse_entry_id"

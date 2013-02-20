@@ -44,6 +44,9 @@ Wamas::Application.routes.draw do
 
   # Warehouse inventory
   get "warehouse_inventories/autocomplete_product_name"
+  get "warehouse_inventories/warehouse_select" => "warehouse_inventories#warehouse_select"
+  get "warehouse_inventories/warehouse_spots_by_warehouse" => "warehouse_inventories#warehouse_spots_by_warehouse"
+  get "warehouse_inventories/inventory_by_warehouse_spot" => "warehouse_inventories#inventory_by_warehouse_spot"
   resources :warehouse_inventories do
     resources :warehouse_inventory_rows
     get :autocomplete_product_name, :on => :collection

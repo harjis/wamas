@@ -1,0 +1,9 @@
+<tr>
+  <td>
+    <%= warehouse_inventory_row_form.hidden_field :warehouse_entry_spot_id %>
+    <%= warehouse_inventory_row_form.hidden_field :product_id, :class => 'real_product_id' %>
+    <%= warehouse_inventory_row_form.autocomplete_field :name, autocomplete_product_name_sales_orders_path, :class => 'product_autocomplete' %>
+  </td>
+  <td><%= warehouse_inventory_row_form.text_field :database_quantity, :readonly => 'readonly' %></td>
+  <td><%= warehouse_inventory_row_form.text_field :counted_quantity %></td>
+</tr>
