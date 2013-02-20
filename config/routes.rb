@@ -1,50 +1,62 @@
 Wamas::Application.routes.draw do
 
-  resources :shipments do
-    resource :shipment_rows
-  end
+  # Product
+  get 'products/balance/:warehouse_id/:product_id' => 'products#balance'
+  resources :products
 
-
-  resources :supplies do
-    resources :supply_rows
-  end
-
-
+  # Purchase order
+  get "purchase_orders/autocomplete_product_name"
+  get 'purchase_orders/show_receive/:id'  => 'purchase_orders#show_receive'
   resources :purchase_orders do
     resources :purchase_order_rows
     get :autocomplete_product_name, :on => :collection
   end
 
-  #we need to introduce the custom routes before the standard recources
-  #otherwise warehouse_spots/spots_with_balance_by_warehouse_id_sales_order_row_id would map to warehouse_spots/show
-  get 'warehouse_spots/all_by_warehouse_id/:warehouse_id'  => 'warehouse_spots#all_by_warehouse_id'
-  get 'warehouse_spots/spots_with_balance_by_warehouse_id_sales_order_row_id/:warehouse_id/:sales_order_row_id' => 'warehouse_spots#spots_with_balance'
-
-  resources :warehouse_spots do
-    get :warehouse_spots_by_warehouse_id
-  end
-
-  resources :warehouses
-
-
+  # Sales order
+  get "sales_orders/autocomplete_product_name"
+  get 'sales_orders/show_delivery/:id' => 'sales_orders#show_delivery'
   resources :sales_orders do
     resources :sales_order_rows
     get :autocomplete_product_name, :on => :collection
   end
 
-  resources :products
+  # Shipment
+  post 'shipments/deliver' => 'shipments#deliver'
+  resources :shipments do
+    resource :shipment_rows
+  end
+
+  # Supply
+  post 'supplies/receive/' => 'supplies#receive'
+  resources :supplies do
+    resources :supply_rows
+  end
+
+  # Warehouse Spot
+  #we need to introduce the custom routes before the standard recources
+  #otherwise warehouse_spots/spots_with_balance_by_warehouse_id_sales_order_row_id would map to warehouse_spots/show
+  get 'warehouse_spots/all_by_warehouse_id/:warehouse_id'  => 'warehouse_spots#all_by_warehouse_id'
+  get 'warehouse_spots/spots_with_balance_by_warehouse_id_sales_order_row_id/:warehouse_id/:sales_order_row_id' => 'warehouse_spots#spots_with_balance'
+  get 'warehouse_spots/:warehouse_spot_id/content/:warehouse_id' => 'warehouse_spots#content'
+  resources :warehouse_spots do
+    get :warehouse_spots_by_warehouse_id
+  end
+
+  # Warehouse inventory
+  get "warehouse_inventories/autocomplete_product_name"
+  get "warehouse_inventories/warehouse_select" => "warehouse_inventories#warehouse_select"
+  get "warehouse_inventories/warehouse_spots_by_warehouse" => "warehouse_inventories#warehouse_spots_by_warehouse"
+  get "warehouse_inventories/inventory_by_warehouse_spot" => "warehouse_inventories#inventory_by_warehouse_spot"
+  resources :warehouse_inventories do
+    resources :warehouse_inventory_rows
+    get :autocomplete_product_name, :on => :collection
+  end
+
+  # Warehouse
+  resources :warehouses
 
   get "home/index"
    root :to => 'home#index'
-
-  get "sales_orders/autocomplete_product_name"
-  get "purchase_orders/autocomplete_product_name"
-
-  get 'purchase_orders/show_receive/:id'  => 'purchase_orders#show_receive'
-  post 'supplies/receive/' => 'supplies#receive'
-
-  get 'sales_orders/show_delivery/:id' => 'sales_orders#show_delivery'
-  post 'shipments/deliver' => 'shipments#deliver'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

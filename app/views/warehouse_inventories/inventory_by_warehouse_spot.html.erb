@@ -1,0 +1,47 @@
+<%= nested_form_for(@warehouse_inventory) do |f| %>
+    <% if @warehouse_inventory.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@warehouse_inventory.errors.count, "error") %> prohibited this warehouse_inventory from
+            being saved:</h2>
+
+          <ul>
+            <% @warehouse_inventory.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :warehouse %>
+      <br/>
+      <%= @warehouse_inventory.warehouse.name %>
+      <%= f.hidden_field :warehouse_id %>
+    </div>
+
+    <div class="field">
+      Warehouse spot
+      <br/>
+      <%= @warehouse_spot.name %>
+    </div>
+
+    <table>
+      <thead>
+      <th>Product name</th>
+      <th>Database quantity</th>
+      <th>Counted quantity</th>
+      </thead>
+      <tbody>
+
+      <%= f.fields_for :warehouse_inventory_rows do |warehouse_inventory_row_form| %>
+          <%= render 'warehouse_inventory_rows/populated_warehouse_inventory_rows_table', :warehouse_inventory_row_form => warehouse_inventory_row_form %>
+      <% end %>
+      </tbody>
+    </table>
+
+    <br/>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

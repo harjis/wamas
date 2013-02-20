@@ -1,0 +1,11 @@
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+
+  <% @warehouses.each do |warehouse| %>
+      <tr>
+        <td><%= link_to warehouse.name, :controller => 'warehouse_inventories', :action => 'warehouse_spots_by_warehouse', :warehouse_id => warehouse %></td>
+      </tr>
+  <% end %>
+</table>

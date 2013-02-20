@@ -91,9 +91,6 @@ class ShipmentsController < ApplicationController
       @shipment.shipment_rows.each_with_index do |shipment_row, i|
         @warehouse_entry = WarehouseEntry.new
         @warehouse_entry.populate_by_shipment_or_supply(shipment_row)
-        #@warehouse_entry.quantity = shipment_row.shipped_quantity
-        #@warehouse_entry.product_id = shipment_row.sales_order_row.product.id
-        #@warehouse_entry.entry_type = 'shipment'
 
         if @warehouse_entry.save
           shipment_row.warehouse_entry_id = @warehouse_entry.id
