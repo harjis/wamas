@@ -80,4 +80,20 @@ class ProductsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # GET /products/balance/1/1.json
+  def balance
+
+    #first is used because we want to return only one object to json
+    @product = Product.joins(:warehouse_entries => [{:warehouse_entry_spots => [{:warehouse_spot => :warehouse}]}])
+    .select('products.id, products.name, sum(warehouse_entry_spots.remaining_spot_quantity) as balance')
+    .where(:id => params[:product_id])
+    .where('warehouses.id = ?', params[:warehouse_id])
+    .group('products.id')
+    .first
+
+    respond_to do |format|
+      format.json { render json: @product }
+    end
+  end
 end

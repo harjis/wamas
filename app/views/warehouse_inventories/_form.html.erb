@@ -1,0 +1,50 @@
+<%= javascript 'warehouse_inventories' %>
+<%= javascript 'products' %>
+<%= javascript 'warehouse_spots' %>
+
+<%= nested_form_for(@warehouse_inventory) do |f| %>
+    <% if @warehouse_inventory.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@warehouse_inventory.errors.count, "error") %> prohibited this warehouse_inventory from
+            being saved:</h2>
+
+          <ul>
+            <% @warehouse_inventory.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :warehouse %>
+      <br/>
+      <%= collection_select(:warehouse_inventory, :warehouse_id, Warehouse.all, :id, :name, {:prompt => 'Select a warehouse'}) %>
+    </div>
+
+    <div id="warehouse_inventory_rows">
+      <%= f.fields_for :warehouse_inventory_rows do |warehouse_inventory_row_form| %>
+          <%= render 'warehouse_inventory_rows/warehouse_inventory_rows_table', :warehouse_inventory_row_form => warehouse_inventory_row_form %>
+      <% end %>
+    </div>
+
+    <br/>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
+
+<div id="warehouse_inventroy_row_template" style="display:none;">
+  <input class="real_product_id" type="hidden">
+  <input class="warehouse_entry_spot_id" type="hidden">
+        <span>
+            <input role="textbox" autocomplete="off" class="name_helper ui-autocomplete-input" data-autocomplete="/warehouse_inventories/autocomplete_product_name" size="30" type="text">
+        </span>
+        <span>
+            <input class="database_quantity" readonly="readonly" size="30" type="text">
+        </span>
+        <span>
+            <input class="counted_quantity"size="30" type="text">
+        </span>
+</div>
