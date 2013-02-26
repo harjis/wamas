@@ -28,7 +28,6 @@ class WarehouseEntry < ActiveRecord::Base
   end
 
   def populate_by_inventory(inventory_row)
-    logger.debug inventory_row.inspect
     self.quantity = inventory_row.counted_quantity - inventory_row.database_quantity
     self.product_id = inventory_row.product_id
     self.entry_type = 'inventory'

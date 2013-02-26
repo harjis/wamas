@@ -122,13 +122,23 @@ class WarehouseInventoriesController < ApplicationController
 
   def inventory_by_warehouse_spot
     @warehouse_spot = WarehouseSpot.find(params[:warehouse_spot_id])
-    @warehouse_spot_content = WarehouseSpot.joins(:warehouse_entry_spots => [{:warehouse_entries => :product}]).where(:id => params[:warehouse_spot_id]).where(:warehouse_id => params[:warehouse_id]).group(:id).first()
+    @warehouse_spot_content = WarehouseSpot
+    .joins(:warehouse_entry_spots => [{:warehouse_entries => :product}])
+    .where(:id => params[:warehouse_spot_id])
+    .where(:warehouse_id => params[:warehouse_id])
+    .group(:id)
+    .first()
 
     @warehouse_inventory = WarehouseInventory.new
     @warehouse_inventory.warehouse = Warehouse.find(params[:warehouse_id])
-    @warehouse_spot_content.warehouse_entry_spots.each do |entry_spot|
-      @warehouse_inventory.warehouse_inventory_rows.build.populate_by_entry_spot(entry_spot)
+    if !@warehouse_spot_content.blank?
+      @warehouse_spot_content.warehouse_entry_spots.each do |entry_spot|
+        @warehouse_inventory.warehouse_inventory_rows.build.populate_by_entry_spot(entry_spot)
+      end
+    else
+      @warehouse_inventory.warehouse_inventory_rows.build
     end
+
 
     respond_to do |format|
       format.html
