@@ -1,6 +1,7 @@
 class WarehouseEntry < ActiveRecord::Base
   belongs_to :product
   has_one :shipment_row
+  has_one :supply_row
   has_and_belongs_to_many :warehouse_entry_spots
   has_many :warehouse_inventory_rows
   attr_accessible :quantity, :entry_type, :warehouse_entry_id, :warehouse_entry_spots, :product
